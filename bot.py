@@ -50,11 +50,11 @@ SYMBOL_MAP = {
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     if user_id not in ALLOWED_USERS:
-        return await update.message.reply_text("❌ Sorry, you are not authorized to use this bot.")
+        return await update.message.reply_text("❌ Sorry, you are not authorized to use this bot. Contact the bot owner to get access.")
     await update.message.reply_text(
         "👋 Welcome to Crypto Alert Bot (Beta)!\n\n"
         "Use <b><i>/add COIN PRICE [above|below]</i></b> - to set a price alert.\n"
-        "Note: You can only set 1 alert at a time in this beta version.\n\n"
+        "Note: You can only set 1 alert at a time in this beta version. Want unlimited alerts? Contact the bot owner.\n\n"
         "Example: <b><i>/add btc 30000 below</i></b>",
         parse_mode="HTML"
     )
@@ -91,7 +91,12 @@ async def add_alert(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     alerts = load_alerts()
     if str(user_id) in alerts and len(alerts[str(user_id)]) >= 1:
-        return await update.message.reply_text("❗ You can only have one alert in this beta version. Remove it first using /remove 1.")
+        return await update.message.reply_text(
+    "❗ You can only have one alert in this beta version.\n"
+    "🗑️ Remove it first using <b>/remove 1</b>.\n\n"
+    "➕ Want unlimited alerts? Contact the bot owner.",
+    parse_mode="HTML"
+)
 
     symbol = context.args[0].lower()
     coin = SYMBOL_MAP.get(symbol)

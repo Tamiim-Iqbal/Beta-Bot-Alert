@@ -173,25 +173,6 @@ def run_ping_server():
         server.serve_forever()
     Thread(target=server_thread, daemon=True).start()
 
-# ========== MAIN ENTRY ==========
-# async def main():
-#     run_ping_server()
-#     app = ApplicationBuilder().token(BOT_TOKEN).build()
-
-#     app.add_handler(CommandHandler("start", start))
-#     app.add_handler(CommandHandler("help", help_command))
-#     app.add_handler(CommandHandler("coin", coin_command))
-#     app.add_handler(CommandHandler("add", add_alert))
-#     app.add_handler(CommandHandler("list", list_alerts))
-#     app.add_handler(CommandHandler("remove", remove_alert))
-#     app.add_handler(CommandHandler("price", get_price))
-#     app.add_handler(MessageHandler(filters.COMMAND, unknown_command))
-
-#     app.job_queue.run_repeating(check_prices, interval=15, first=5)
-#     asyncio.create_task(ping_self())
-
-#     print("🤖 Bot running on Render...")
-#     await app.run_polling()
 async def main():
     run_ping_server()
     app = ApplicationBuilder().token(BOT_TOKEN).build()
